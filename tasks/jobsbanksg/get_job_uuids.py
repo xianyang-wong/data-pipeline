@@ -61,7 +61,7 @@ if __name__=='__main__':
     for i in tqdm(range(0, search_iterations)):
         search_response = requests_retry_session(session=requestsSession).get(
             'https://api.mycareersfuture.sg/v2/jobs?limit=100&page={}&sortBy=new_posting_date'.format(i),
-            timeout=3.0)
+            timeout=10.0)
         job_uuids += [response['uuid'] for response in search_response.json()['results']]
 
     with open(os.path.join(base_path, 'data/job_uuids.csv'), 'w') as f:
