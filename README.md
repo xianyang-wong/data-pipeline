@@ -1,6 +1,10 @@
-# data-pipeline
+# Data Pipeline
 
-### Running DAGs on Airflow
+## A) Projects
+### JobsBank SG
+On a daily basis, this repo would extract and save all new job postings and save the information to the database.The SQL code to create the table to store the extracted data is found in `tasks/jobsbanksg/jobs_bank_api.sql`.
+
+## B) Running DAGs on Airflow
 1) Pull Airflow image from DockerHub
 
     `docker pull puckel/docker-airflow`
@@ -47,3 +51,4 @@
 10) Access Airflow UI
 
     `http://localhost:8080/admin/`
+

@@ -1,4 +1,7 @@
+CREATE SCHEMA jobsbanksg;
+
 DROP TABLE IF EXISTS jobsbanksg.tbl_jobs_api;
+
 CREATE TABLE jobsbanksg.tbl_jobs_api (
     job_uuid            text,
     source_code         text,
