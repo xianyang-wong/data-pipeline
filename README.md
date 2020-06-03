@@ -15,9 +15,9 @@
 
 4) Install VIM & Git
 
-    `apt-get update`
+    `apt-get update`  
     `apt-get install vim`  
-    `apt-get install git`
+    `apt-get install git`  
     
 5) Git clone data-pipeline repository
 
@@ -25,12 +25,12 @@
     
 6) Create new config.ini file in cloned data-pipeline/config folder using template shown below
 
-    [aws_db]
-    host=<host>
-    port=<port>
-    user=<username>
-    password=<password>
-    database=<database>
+    `[aws_db]`  
+    `host=<host>`  
+    `port=<port>`  
+    `user=<username>`  
+    `password=<password>`  
+    `database=<database>`  
 
 7) Modify airflow.cfg
 
