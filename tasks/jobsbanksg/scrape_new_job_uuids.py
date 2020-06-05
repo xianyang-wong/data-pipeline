@@ -7,44 +7,20 @@ import logging
 import sys
 
 import requests
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
 
+if len(sys.argv) == 1:
+    base_path = os.getcwd()
+else:
+    base_path = sys.argv[1]
+sys.path.append(base_path)
+from utils import config, db_connection_helper as db, requests_util
 
-def requests_retry_session(
-    retries=3,
-    backoff_factor=0.3,
-    status_forcelist=(500, 502, 504),
-    session=None,
-):
-    session = session or requests.Session()
-    retry = Retry(
-        total=retries,
-        read=retries,
-        connect=retries,
-        backoff_factor=backoff_factor,
-        status_forcelist=status_forcelist,
-    )
-    adapter = HTTPAdapter(max_retries=retry)
-    session.mount('http://', adapter)
-    session.mount('https://', adapter)
-    return session
-
-
-if __name__=='__main__':
-
-    if len(sys.argv) == 1:
-        base_path = os.getcwd()
-    else:
-        base_path = sys.argv[1]
-
-    sys.path.append(base_path)
-    from utils import config, db_connection_helper as db
+if __name__ == '__main__':
 
     logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
     # Connection to database
-    db_cfg = config.get_config()['aws_db']
+    db_cfg = config.get_config()['psql']
     host = db_cfg['host']
     port = db_cfg['port']
     user = db_cfg['user']
@@ -62,7 +38,7 @@ if __name__=='__main__':
     requestsSession = requests.Session()
 
     # Read in new job uuids from saved .csv
-    job_uuids = pd.read_csv(os.path.join(base_path, 'data/job_uuids.csv'), header=None).iloc[:,0].to_list()
+    job_uuids = pd.read_csv(os.path.join(base_path, 'data/job_uuids.csv'), header=None).iloc[:, 0].to_list()
 
     extracted_jobs = db_conn.get_raw_data('''
           SELECT job_uuid
@@ -78,7 +54,7 @@ if __name__=='__main__':
     counter = 0
     while len(new_job_uuids) != 0:
 
-        job_response = requests_retry_session(session=requestsSession).get(
+        job_response = requests_util.requests_retry_session(session=requestsSession).get(
             'https://api.mycareersfuture.sg/v2/jobs/{}'.format(new_job_uuids[0]),
             timeout=5)
 

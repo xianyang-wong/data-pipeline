@@ -7,7 +7,7 @@ import pandas as pd
 class rdbmsConnectionHelper(object):
     def __init__(self, host, port, user, password, database):
 
-        self.__host=host
+        self.__host = host
         self.__port = port
         self.__user = user
         self.__password = password
