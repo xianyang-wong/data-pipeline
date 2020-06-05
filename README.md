@@ -25,6 +25,9 @@ On a daily basis, this repo would extract and save all new job postings and save
     
 5) Git clone data-pipeline repository
 
+    `git clone <Your git clone path here>`
+    or
+    
     `git clone https://github.com/xianyang-wong/data-pipeline.git`
     
 6) Create new config.ini file in cloned data-pipeline/config folder using template shown below
