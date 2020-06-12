@@ -20,7 +20,7 @@ if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
     # Connection to database
-    db_cfg = config.get_config()['psql']
+    db_cfg = config.get_config()['aws_db']
     host = db_cfg['host']
     port = db_cfg['port']
     user = db_cfg['user']
