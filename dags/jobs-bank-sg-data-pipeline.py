@@ -3,21 +3,12 @@ from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
-import os, sys
-if len(sys.argv) == 1:
-    base_path = os.getcwd()
-else:
-    base_path = sys.argv[1]
-sys.path.append(base_path)
-from utils import config
-
-email = config.get_config()['email']
 
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
     'start_date': days_ago(1),
-    'email': [email.email],
+    'email': ['xianyangw@gmail.com'],
     'email_on_failure': True,
     'email_on_retry': False,
     'retries': 1,
